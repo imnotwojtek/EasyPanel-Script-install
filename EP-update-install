@@ -7,16 +7,15 @@ sudo mkswap /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 # Konfiguracja parametrów systemowych
-sudo sysctl vm.swappiness=10
-sudo sysctl vm.vfs_cache_pressure=50
-sudo echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
-sudo echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 
 # Zamontowanie pliku wymiany
-sudo mount -a
+sudo swapon -a
 
 # Aktualizacja systemu
-sudo apt update
+sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
 sudo apt clean
