@@ -14,6 +14,10 @@ sudo sysctl -p
 # Zamontowanie pliku wymiany
 sudo swapon -a
 
+# Aktualizacja serwerów DNS
+echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
+echo "nameserver 1.0.0.1" | sudo tee -a /etc/resolv.conf
+
 # Aktualizacja systemu
 sudo apt update -y
 sudo apt upgrade -y
