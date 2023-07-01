@@ -1,0 +1,1 @@
+# EasyPanel-Script-install
