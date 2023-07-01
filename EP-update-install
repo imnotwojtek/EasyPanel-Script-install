@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Utworzenie pliku wymiany
+sudo fallocate -l 10G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+# Konfiguracja parametrów systemowych
+sudo sysctl vm.swappiness=10
+sudo sysctl vm.vfs_cache_pressure=50
+sudo echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+sudo echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+
+# Zamontowanie pliku wymiany
+sudo mount -a
+
+# Aktualizacja systemu
+sudo apt update
+sudo apt upgrade -y
+sudo apt autoremove -y
+sudo apt clean
+sudo updatedb
+sudo systemctl restart systemd-journald
+
+# Instalacja EasyPanel
+curl -sSL https://get.easypanel.io | sh
+
+# Restart serwera
+sudo reboot
